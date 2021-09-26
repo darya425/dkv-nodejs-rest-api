@@ -1,32 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { listContacts, getContactById } = require('../../model/index.js');
+const { controllerWrapper, validation } = require("../../middlewares");
+const { productSchema } = require("../../schemas");
 
-router.get('/', async (req, res, next) => {
-  const contacts = await listContacts();
-  res.json(contacts);
-});
+const { contacts: ctrl } = require("../../controllers");
 
-router.get('/:contactId', async (req, res, next) => {
-  const contact = await getContactById(2);
-  if (!contact) {
-    res.json({ message: 'Not found' });
-  }
-  res.json(contact);
-});
+router.get("/", controllerWrapper(ctrl.getAll));
 
-router.post('/', async (req, res, next) => {
-  // const body = ({ name, email, number } = req.body);
-  res.json({ message: 'template message' });
-});
+router.get("/:contactId", controllerWrapper(ctrl.getById));
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' });
-});
+router.post("/", validation(productSchema), controllerWrapper(ctrl.add));
 
-router.patch('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' });
-});
+router.patch(
+  "/:contactId",
+  validation(productSchema),
+  controllerWrapper(ctrl.updateById)
+);
+
+router.delete("/:contactId", controllerWrapper(ctrl.deleteById));
 
 module.exports = router;
