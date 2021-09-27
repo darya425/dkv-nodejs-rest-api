@@ -4,20 +4,26 @@ const router = express.Router();
 const { controllerWrapper, validation } = require("../../middlewares");
 const { productSchema } = require("../../schemas");
 
-const { contacts: ctrl } = require("../../controllers");
+const {
+  getAll,
+  getById,
+  add,
+  updateById,
+  deleteById,
+} = require("../../controllers");
 
-router.get("/", controllerWrapper(ctrl.getAll));
+router.get("/", controllerWrapper(getAll));
 
-router.get("/:contactId", controllerWrapper(ctrl.getById));
+router.get("/:contactId", controllerWrapper(getById));
 
-router.post("/", validation(productSchema), controllerWrapper(ctrl.add));
+router.post("/", validation(productSchema), controllerWrapper(add));
 
 router.patch(
   "/:contactId",
   validation(productSchema),
-  controllerWrapper(ctrl.updateById)
+  controllerWrapper(updateById)
 );
 
-router.delete("/:contactId", controllerWrapper(ctrl.deleteById));
+router.delete("/:contactId", controllerWrapper(deleteById));
 
 module.exports = router;
