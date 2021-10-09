@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { controllerWrapper, validation } = require("../../middlewares");
-const { productSchema } = require("../../schemas");
+const { joiSchema } = require("../../models/contact");
 
 const {
   getAll,
@@ -16,11 +16,11 @@ router.get("/", controllerWrapper(getAll));
 
 router.get("/:contactId", controllerWrapper(getById));
 
-router.post("/", validation(productSchema), controllerWrapper(add));
+router.post("/", validation(joiSchema), controllerWrapper(add));
 
 router.patch(
-  "/:contactId",
-  validation(productSchema),
+  "/:contactId/favorite",
+  validation(joiSchema),
   controllerWrapper(updateById)
 );
 
