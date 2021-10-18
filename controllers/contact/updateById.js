@@ -8,6 +8,7 @@ const updateStatusContact = (contactId, body) => {
 const updateById = async (req, res) => {
   const { contactId } = req.params;
   const { favorite } = req.body;
+
   const result = await updateStatusContact(contactId, { favorite });
 
   if (!result) {
