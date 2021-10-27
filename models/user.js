@@ -7,6 +7,10 @@ const emailRegexp =
 
 const userSchema = Schema(
   {
+    avatarURL: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: [true, "Email is required"],
