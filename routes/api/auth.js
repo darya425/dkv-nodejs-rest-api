@@ -21,6 +21,8 @@ router.patch(
   controllerWrapper(ctrl.updateUser)
 );
 
+router.get("/verify/:verificationToken", controllerWrapper(ctrl.verify));
+
 router.get("/current", authenticate, controllerWrapper(ctrl.current));
 
 router.get("/logout", authenticate, controllerWrapper(ctrl.signout));
